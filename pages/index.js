@@ -52,9 +52,14 @@ export default function Home() {
         })
       }
       else {
+        setLoading(false);
         setErrorMessage("Not able to get details for your location")
       }
     })
+      .catch(function (err) {
+        setLoading(false);
+        setErrorMessage(err)
+      })
   }
 
   /**
@@ -64,9 +69,6 @@ export default function Home() {
     <Grid container item sm={12} xs={12} spacing={1}
       justifyContent="center" justifyItems="center" alignContent="center" align="center"
       style={{
-        backgroundImage: "url(" + `${backgroundImagePath}` + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
         paddingBottom: '10%'
       }}
     >

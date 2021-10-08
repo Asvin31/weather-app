@@ -1,12 +1,11 @@
-import { useRouter } from 'next/router'
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
-import Spinner from "../../components/Spinner";
-import { constants } from '../../components/constants';
 import CityDetails from '../../components/CityDetails';
+import { constants } from '../../components/constants';
 import Header from '../../components/Header';
-import theme from "../../theme"
+import Spinner from "../../components/Spinner";
 
 export default function City() {
     const { backgroundImagePath } = constants;
@@ -48,6 +47,9 @@ export default function City() {
                     setLoading(false)
                     setErrorMessage("Not able to get details for your location")
                 }
+            }).catch(function (err) {
+                setLoading(false)
+                setErrorMessage(err)
             })
         }
         else {
@@ -61,9 +63,6 @@ export default function City() {
         <Grid container item sm={12} xs={12} spacing={1}
             justifyContent="center" justifyItems="center" alignContent="center" align="center"
             style={{
-                backgroundImage: "url(" + `${backgroundImagePath}` + ")",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
                 paddingBottom: '10%'
             }}
         >

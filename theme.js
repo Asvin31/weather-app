@@ -1,16 +1,36 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-import { grey, purple } from '@mui/material/colors';
 
-let theme = createTheme({
+export const theme = createTheme({
     palette: {
+        type: "light",
         primary: {
-            main: grey[300],
+            main: '#84ffff',
         },
         secondary: {
-            main: purple[500],
+            main: '#00acc1',
         },
+        background: {
+            default: '#eaeaea'
+        },
+        divider: {
+            main: '#000',
+            default: "#000"
+        }
     },
 });
-theme = responsiveFontSizes(theme);
 
-export default theme;
+export const darkTheme = createTheme({
+    palette: {
+        type: "dark",
+        primary: {
+            main: '#00b8d4',
+        },
+        secondary: {
+            main: '#84ffff',
+        },
+        background: {
+            default: '#eaeaea'
+        }
+    },
+
+})
