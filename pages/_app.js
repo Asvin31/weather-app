@@ -1,14 +1,16 @@
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import WrapperComp from '../components/WrapperComp';
+import ThemeContextProvider from '../context/ThemeContext';
 import '../styles/globals.css';
-import { theme } from '../theme';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <ThemeContextProvider>
+      <WrapperComp>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </WrapperComp>
+    </ThemeContextProvider>
   )
 }
 

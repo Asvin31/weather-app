@@ -1,10 +1,10 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
-import NearByCities from "../components/NearByCities";
-import Spinner from "../components/Spinner";
 import { constants } from "../components/constants";
 import Header from "../components/Header";
+import NearByCities from "../components/NearByCities";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   /**
@@ -17,6 +17,7 @@ export default function Home() {
   const [longitude, setLongitude] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [cities, setCities] = useState([]);
+
 
   /**
    * Inital call for the page

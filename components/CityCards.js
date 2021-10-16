@@ -3,7 +3,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from "@mui/material/Grid";
-import Link from 'next/link'
+import { makeStyles } from '@mui/styles';
+import Link from 'next/link';
 
 
 const CityCards = ({ city }) => {
@@ -34,9 +35,15 @@ const CityCards = ({ city }) => {
             </Grid>
         )
     }
+    const useStyles = makeStyles((theme) => ({
+        card: {
+            backgroundColor: theme.palette.background.card
+        }
+    }))
+    const classes = useStyles();
     return (
         <Link href={`/city/${city.woeid}`}>
-            <Card variant="outlined" style={{ cursor: 'pointer' }}>
+            <Card variant="outlined" style={{ cursor: 'pointer' }} className={classes.card}>
                 <CardHeader
                     title={city.title}
                 />

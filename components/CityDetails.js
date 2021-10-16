@@ -4,16 +4,67 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
+import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Grid";
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography";
 import { makeStyles } from '@mui/styles';
 import Image from 'next/image';
+import PropTypes from 'prop-types';
 import { directions } from './directions';
 import { getDate } from './GetDate';
 import SourceDetails from './SourceDetails';
 
+function CircularProgressWithLabel(props) {
+    return (
+        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+            <CircularProgress variant="determinate" {...props} />
+            <Box
+                sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography variant="caption" component="div" color="text.secondary"
+                    style={{ fontWeight: 'bold' }}>
+                    {`${Math.round(props.value)}%`}
+                </Typography>
+            </Box>
+        </Box>
+    );
+}
 
+CircularProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate variant.
+     * Value between 0 and 100.
+     * @default 0
+     */
+    value: PropTypes.number.isRequired,
+};
+
+const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    borderRadius: 0,
+    boxShadow: 'none !important',
+    backgroundColor: theme.palette.background.card
+}));
 
 const CityDetails = ({ weather, weatherSource, title, sunDetails, parent }) => {
     const useStyles = makeStyles((theme) => ({
@@ -35,11 +86,14 @@ const CityDetails = ({ weather, weatherSource, title, sunDetails, parent }) => {
                 marginRight: '1%',
                 margin: '-5%'
             },
+            card: {
+                backgroundColor: theme.palette.background.card
+            }
         }))
         const classes = useStyles();
         const cssProp = 'rotate(' + directions[weatherDetail.wind_direction_compass] + ')'
         return (
-            <Card variant="outlined">
+            <Card variant="outlined" className={classes.card}>
                 <CardHeader
                     title={getDate(weatherDetail.applicable_date)}
                 />
@@ -68,12 +122,26 @@ const CityDetails = ({ weather, weatherSource, title, sunDetails, parent }) => {
                         {weatherDetail.wind_speed.toFixed(0)}mph
                     </Typography>
                     <Divider />
-                    <Typography variant="subtitle2">
-                        Humidity : {weatherDetail.humidity.toFixed(0)}%
-                    </Typography>
-                    <Typography variant="subtitle2">
-                        Visibility : {weatherDetail.visibility.toFixed(0)}miles
-                    </Typography>
+                    <Stack direction="row" spacing={2}>
+                        <Item>
+                            <Typography variant="subtitle2">
+                                Humidity :
+                            </Typography>
+                        </Item>
+                        <Item>
+                            <CircularProgressWithLabel variant="determinate" value={weatherDetail.humidity.toFixed(0)} />
+                        </Item>
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                        <Item>
+                            <Typography variant="subtitle2">
+                                Visibility :
+                            </Typography>
+                        </Item>
+                        <Item>
+                            <CircularProgressWithLabel variant="determinate" value={weatherDetail.visibility.toFixed(0)} />
+                        </Item>
+                    </Stack>
                     <Divider />
                     <Typography variant="subtitle2">
                         Pressure : {weatherDetail.air_pressure.toFixed(0)}mb

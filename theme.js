@@ -1,4 +1,5 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
@@ -10,12 +11,17 @@ export const theme = createTheme({
             main: '#00acc1',
         },
         background: {
-            default: '#eaeaea'
+            default: '#eaeaea',
+            card: '#fff'
         },
         divider: {
             main: '#000',
             default: "#000"
-        }
+        },
+        text: {
+            primary: grey[900],
+            secondary: grey[800],
+        },
     },
 });
 
@@ -29,7 +35,16 @@ export const darkTheme = createTheme({
             main: '#84ffff',
         },
         background: {
-            default: '#eaeaea'
+            default: '#000',
+            card: '#333333'
+        },
+        text: {
+            primary: '#fff',
+            secondary: grey[500],
+        },
+        divider: {
+            main: '#fff',
+            default: "#fff"
         }
     },
 

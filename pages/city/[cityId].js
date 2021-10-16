@@ -10,7 +10,6 @@ import Spinner from "../../components/Spinner";
 export default function City() {
     const { backgroundImagePath } = constants;
     const router = useRouter();
-    const { query: { cityId } } = router;
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [weather, setWeather] = useState([]);
@@ -23,6 +22,7 @@ export default function City() {
     })
 
     useEffect(() => {
+        const { query: { cityId } } = router;
         if (cityId) {
             fetch("/api/city?woeid=" + cityId, {
                 method: 'GET'
@@ -56,7 +56,7 @@ export default function City() {
             setLoading(false)
             setErrorMessage("Please select a proper city.")
         }
-    }, [])
+    }, [router])
     return (
 
 
